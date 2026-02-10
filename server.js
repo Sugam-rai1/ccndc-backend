@@ -35,7 +35,7 @@ app.use(
 
       // 🔥 LIVE FRONTEND (replace with your real URLs)
       "https://ccndc.vercel.app",
-      "https://ccndc-admin.vercel.app",
+      "https://vocal-nasturtium-d95870.netlify.app/",
     ],
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     credentials: true,
