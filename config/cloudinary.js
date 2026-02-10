@@ -1,29 +1,34 @@
 // backend/config/cloudinary.js
 
-import { v2 as cloudinary } from 'cloudinary';
-import dotenv from 'dotenv';
-
-dotenv.config();
+import { v2 as cloudinary } from "cloudinary";
 
 const connectCloudinary = () => {
-  const { CLOUDINARY_NAME, CLOUDINARY_API_KEY, CLOUDINARY_API_SECRET } = process.env;
+  const {
+    CLOUDINARY_CLOUD_NAME,
+    CLOUDINARY_API_KEY,
+    CLOUDINARY_API_SECRET,
+  } = process.env;
 
-  if (!CLOUDINARY_NAME || !CLOUDINARY_API_KEY || !CLOUDINARY_API_SECRET) {
-    console.error('❌ Cloudinary environment variables are missing');
-    return;
+  console.log("🔍 Checking Cloudinary env vars...");
+  console.log("CLOUDINARY_CLOUD_NAME:", CLOUDINARY_CLOUD_NAME);
+  console.log("CLOUDINARY_API_KEY exists:", !!CLOUDINARY_API_KEY);
+  console.log("CLOUDINARY_API_SECRET exists:", !!CLOUDINARY_API_SECRET);
+
+  if (
+    !CLOUDINARY_CLOUD_NAME ||
+    !CLOUDINARY_API_KEY ||
+    !CLOUDINARY_API_SECRET
+  ) {
+    throw new Error("❌ Cloudinary environment variables are missing");
   }
 
-  try {
-    cloudinary.config({
-      cloud_name: CLOUDINARY_NAME,
-      api_key: CLOUDINARY_API_KEY,
-      api_secret: CLOUDINARY_API_SECRET,
-    });
+  cloudinary.config({
+    cloud_name: CLOUDINARY_CLOUD_NAME,
+    api_key: CLOUDINARY_API_KEY,
+    api_secret: CLOUDINARY_API_SECRET,
+  });
 
-    console.log('✅ Cloudinary connected successfully!');
-  } catch (error) {
-    console.error('❌ Cloudinary connection failed:', error);
-  }
+  console.log("✅ Cloudinary connected successfully!");
 };
 
 export { cloudinary, connectCloudinary };
