@@ -28,14 +28,27 @@ app.use(express.json());
 // ✅ UPDATED CORS (LOCAL + LIVE)
 app.use(
   cors({
-    origin: [
-      "http://localhost:5173",
-      "http://localhost:5174",
+    origin: function (origin, callback) {
+      const allowedOrigins = [
+        "http://localhost:5173",
+        "http://localhost:5174",
+        "https://ccndc.netlify.app",
+        "https://ccndcadmin.netlify.app",
+      ];
 
-      // ✅ Your real deployed sites
-      "https://ccndcadmin.netlify.app",
-      "https://ccndc.netlify.app"
-    ],
+      // allow requests with no origin (like mobile apps, Postman)
+      if (!origin) return callback(null, true);
+
+      // allow netlify subdomains
+      if (
+        allowedOrigins.includes(origin) ||
+        origin.endsWith(".netlify.app")
+      ) {
+        return callback(null, true);
+      }
+
+      return callback(new Error("Not allowed by CORS"));
+    },
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     credentials: true,
   })
