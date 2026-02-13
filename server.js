@@ -29,13 +29,12 @@ app.use(express.json());
 app.use(
   cors({
     origin: [
-      // Local development
       "http://localhost:5173",
       "http://localhost:5174",
 
-      // 🔥 LIVE FRONTEND (replace with your real URLs)
-      "https://ccndc.vercel.app",
-      "https://vocal-nasturtium-d95870.netlify.app/",
+      // ✅ Your real deployed sites
+      "https://ccndcadmin.netlify.app",
+      "https://ccndc.netlify.app"
     ],
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     credentials: true,
